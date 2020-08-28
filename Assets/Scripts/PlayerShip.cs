@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -32,5 +33,11 @@ public class PlayerShip : MonoBehaviour
         float turnAmountThisFrame = Input.GetAxisRaw("Horizontal") * _turnSpeed;
         Quaternion turnOffset = Quaternion.Euler(0, turnAmountThisFrame, 0);
         _rb.MoveRotation(_rb.rotation * turnOffset);
+    }
+
+    public void Kill()
+    {
+        UnityEngine.Debug.Log("Player has been killed!");
+        this.gameObject.SetActive(false);
     }
 }
