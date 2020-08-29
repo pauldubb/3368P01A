@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -9,10 +10,13 @@ public class PlayerShip : MonoBehaviour
     [SerializeField] float _moveSpeed = 12f;
     [SerializeField] float _turnSpeed = 3f;
     Rigidbody _rb = null;
+    public GameObject thrusters;
+    
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        thrusters.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -26,6 +30,15 @@ public class PlayerShip : MonoBehaviour
         float moveAmountThisFrame = Input.GetAxisRaw("Vertical") * _moveSpeed;
         Vector3 moveDirection = transform.forward * moveAmountThisFrame;
         _rb.AddForce(moveDirection);
+        if (moveAmountThisFrame > 0)
+        {
+            thrusters.SetActive(true);
+        }
+        else
+        {
+            thrusters.SetActive(false);
+        }
+
     }
 
     void TurnShip()
